@@ -81,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
-                onTap: () => _auth.signUp(
+                onTap: () => _auth.login(
                   email: _emailController.text,
                   password: _passwordController.text
                 ),

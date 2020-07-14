@@ -98,9 +98,15 @@ class _RegisterViewState extends State<RegisterView> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
-                onTap: () => _auth.signUp(
-                    email: _emailController.text,
-                    password: _passwordController.text),
+                onTap: () {
+                  print('signing up for an account');
+                  _auth.signUp(
+                      email: _emailController.text,
+                      password: _passwordController.text);
+                  _auth.setUpAccount(
+                      email: _emailController.text,
+                      password: _passwordController.text);
+                },
                 child: Container(
                   child: Center(
                     child: Text(
