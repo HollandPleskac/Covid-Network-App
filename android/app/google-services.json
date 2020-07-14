@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "887563622916",
+    "firebase_url": "https://covid-network.firebaseio.com",
+    "project_id": "covid-network",
+    "storage_bucket": "covid-network.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887563622916:android:4fda5159370773643cb351",
+        "android_client_info": {
+          "package_name": "com.xeon_developers.covid_network_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "887563622916-70kmgg80o8tsq1u4t0m8hup2ha9qk3v0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS-Iy85ARGbSv7wCLLRMehReaXKVEFdnQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "887563622916-70kmgg80o8tsq1u4t0m8hup2ha9qk3v0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
