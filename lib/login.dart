@@ -5,7 +5,6 @@ import './register.dart';
 
 final _auth = Auth();
 
-
 class LoginView extends StatefulWidget {
   @override
   _LoginViewState createState() => _LoginViewState();
@@ -14,6 +13,8 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +29,7 @@ class _LoginViewState extends State<LoginView> {
             height: MediaQuery.of(context).size.height * 0.02,
           ),
           Form(
+            key: _formKey,
             child: Column(
               children: [
                 Center(
@@ -81,10 +83,13 @@ class _LoginViewState extends State<LoginView> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
-                onTap: () => _auth.login(
-                  email: _emailController.text,
-                  password: _passwordController.text
-                ),
+                onTap: () async {
+                  print('logging in');
+                  List result = await _auth.login(
+                      email: _emailController.text,
+                      password: _passwordController.text);
+                      print('RES : '+result.toString());
+                },
                 child: Container(
                   child: Center(
                     child: Text(
