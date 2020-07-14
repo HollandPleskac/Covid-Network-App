@@ -1,7 +1,10 @@
-
 import 'package:flutter/material.dart';
 
+import './logic/auth.dart';
 import './register.dart';
+
+final _auth = Auth();
+
 
 class LoginView extends StatefulWidget {
   @override
@@ -9,6 +12,8 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,43 +27,51 @@ class _LoginViewState extends State<LoginView> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.02,
           ),
-          Center(
-            child: Container(
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        border: InputBorder.none, hintText: 'Email'),
+          Form(
+            child: Column(
+              children: [
+                Center(
+                  child: Container(
+                    child: Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                              border: InputBorder.none, hintText: 'Email'),
+                        ),
+                      ),
+                    ),
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(10)),
                   ),
                 ),
-              ),
-              height: MediaQuery.of(context).size.height * 0.06,
-              width: MediaQuery.of(context).size.width * 0.85,
-              decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(10)),
-            ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.02,
-          ),
-          Center(
-            child: Container(
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        border: InputBorder.none, hintText: 'Password'),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                Center(
+                  child: Container(
+                    child: Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                              border: InputBorder.none, hintText: 'Password'),
+                        ),
+                      ),
+                    ),
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(10)),
                   ),
                 ),
-              ),
-              height: MediaQuery.of(context).size.height * 0.06,
-              width: MediaQuery.of(context).size.width * 0.85,
-              decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(10)),
+              ],
             ),
           ),
           SizedBox(
@@ -68,6 +81,10 @@ class _LoginViewState extends State<LoginView> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
+                onTap: () => _auth.signUp(
+                  email: _emailController.text,
+                  password: _passwordController.text
+                ),
                 child: Container(
                   child: Center(
                     child: Text(

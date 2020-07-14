@@ -1,7 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 import './login.dart';
+
+import './logic/auth.dart';
+
+final _auth = Auth();
 
 class RegisterView extends StatefulWidget {
   @override
@@ -9,6 +12,9 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _repeatPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +34,7 @@ class _RegisterViewState extends State<RegisterView> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: TextField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                         border: InputBorder.none, hintText: 'Email'),
                   ),
@@ -49,6 +56,7 @@ class _RegisterViewState extends State<RegisterView> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: TextField(
+                    controller: _passwordController,
                     decoration: InputDecoration(
                         border: InputBorder.none, hintText: 'Password'),
                   ),
@@ -70,6 +78,7 @@ class _RegisterViewState extends State<RegisterView> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: TextField(
+                    controller: _repeatPasswordController,
                     decoration: InputDecoration(
                         border: InputBorder.none, hintText: 'Repeat Password'),
                   ),
@@ -89,6 +98,9 @@ class _RegisterViewState extends State<RegisterView> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
+                onTap: () => _auth.signUp(
+                    email: _emailController.text,
+                    password: _passwordController.text),
                 child: Container(
                   child: Center(
                     child: Text(
