@@ -31,6 +31,7 @@ class _RegisterViewState extends State<RegisterView> {
             height: MediaQuery.of(context).size.height * 0.02,
           ),
           Form(
+            key: _formKey,
             child: Column(
               children: [
                 Center(
