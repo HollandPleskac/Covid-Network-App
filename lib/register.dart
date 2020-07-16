@@ -1,3 +1,4 @@
+import 'package:covid_network_app/Arm.dart';
 import 'package:flutter/material.dart';
 
 import './login.dart';
@@ -118,6 +119,10 @@ class _RegisterViewState extends State<RegisterView> {
                   _auth.setUpAccount(
                       email: _emailController.text,
                       password: _passwordController.text);
+                  Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeView()),
+          );
                 },
                 child: Container(
                   child: Center(
