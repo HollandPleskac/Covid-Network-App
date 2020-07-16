@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import './logic/fire.dart';
 
 import './data.dart';
+
+final _fire = Fire();
 
 class HomeView extends StatefulWidget {
   @override
@@ -24,6 +27,7 @@ class _HomeViewState extends State<HomeView> {
               setState(() {
                 if (armed) {
                   armed = false;
+                  _fire.pressDisarm();
                 } else {
                   armed = true;
                 }
