@@ -14,7 +14,7 @@ class Auth {
 
       return ['success', email];
     } catch (error) {
-      return ['failure','error'];
+      return ['failure', 'error'];
       // switch (error.code) {
       //   case "ERROR_INVALID_EMAIL":
       //     return ['failure', 'Email is badly formatted'];
@@ -52,7 +52,7 @@ class Auth {
 
       return ['success', email];
     } catch (error) {
-      return ['failure','error'];
+      return ['failure', 'error'];
       // switch (error.code) {
       //   case "ERROR_WEAk_PASSWORD":
       //     return ['failure', 'Password is not strong enough'];
@@ -68,8 +68,9 @@ class Auth {
   }
 
   void setUpAccount({String email, String password}) {
-    _firestore.collection('UserData').document(email).setData({
+    _firestore.collection('Users').document(email).setData({
       'email': email,
     });
+    _firestore.collection('Users').document(email).collection('logs');
   }
 }

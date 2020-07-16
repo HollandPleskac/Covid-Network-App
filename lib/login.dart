@@ -14,7 +14,7 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
