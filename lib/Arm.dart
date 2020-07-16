@@ -33,9 +33,26 @@ class _HomeViewState extends State<HomeView> {
               setState(() {
                 if (armed) {
                   armed = false;
-                  _fire.pressDisarm();
+                  print('now armed');
+                  // Start scanning
+                  flutterBlue.startScan(timeout: Duration(seconds: 4));
+
+                  // Listen to scan results
+                  var subscription = flutterBlue.scanResults.listen((results) {
+                    // do something with scan results
+                    for (ScanResult r in results) {
+                      print('${r.device.name} found! rssi: ${r.rssi}');
+                    }
+                  });
+
+                  
                 } else {
                   armed = true;
+                  print('now disarmed');
+                  // Stop scanning
+
+                  flutterBlue.stopScan();
+                  _fire.pressDisarm();
                 }
               });
             },
@@ -62,7 +79,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 Center(
                   child: Text(
-                    armed ? 'Disarm' : 'Arm',
+                    armed ? 'Disarmed' : 'Armed',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 38,
