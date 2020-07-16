@@ -30,7 +30,16 @@ class _HomeViewState extends State<HomeView> {
             onTap: () {
               setState(() {
                 if (armed) {
-                  armed = false;                  
+                  armed = false;
+                  flutterBlue.startScan(timeout: Duration(seconds: 4));
+                  // ignore: cancel_subscriptions
+                  var subscription = flutterBlue.scanResults.listen((results) {
+                    // do something with scan results
+                    for (ScanResult r in results) {
+                      print('${r.device.name} found! rssi: ${r.rssi}');
+                    }
+                  });
+                  subscription;
                 } else {
                   armed = true;
                 }
