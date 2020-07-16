@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import './logic/fire.dart';
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:uuid/uuid.dart';
 
 import './data.dart';
+
+final _fire = Fire();
 
 class HomeView extends StatefulWidget {
   @override
@@ -31,15 +33,7 @@ class _HomeViewState extends State<HomeView> {
               setState(() {
                 if (armed) {
                   armed = false;
-                  flutterBlue.startScan(timeout: Duration(seconds: 4));
-                  // ignore: cancel_subscriptions
-                  var subscription = flutterBlue.scanResults.listen((results) {
-                    // do something with scan results
-                    for (ScanResult r in results) {
-                      print('${r.device.name} found! rssi: ${r.rssi}');
-                    }
-                  });
-                  subscription;
+                  _fire.pressDisarm();
                 } else {
                   armed = true;
                 }

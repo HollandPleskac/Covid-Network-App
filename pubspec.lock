@@ -64,6 +64,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+<<<<<<< HEAD
+=======
   crypto:
     dependency: transitive
     description:
@@ -71,6 +73,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
+>>>>>>> da7d6dc26a6cf71446dbd8dbcfe95d37aba38631
   cupertino_icons:
     dependency: "direct main"
     description:
