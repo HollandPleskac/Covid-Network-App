@@ -45,13 +45,14 @@ class _HomeViewState extends State<HomeView> {
                     }
                   });
 
-                  _fire.pressDisarm();
+                  
                 } else {
                   armed = true;
                   print('now disarmed');
                   // Stop scanning
 
                   flutterBlue.stopScan();
+                  _fire.pressDisarm();
                 }
               });
             },
