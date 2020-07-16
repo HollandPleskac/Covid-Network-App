@@ -1,5 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import './logic/fire.dart';
+=======
+import 'package:flutter_blue/flutter_blue.dart';
+import 'package:uuid/uuid.dart';
+>>>>>>> da7d6dc26a6cf71446dbd8dbcfe95d37aba38631
 
 import './data.dart';
 
@@ -13,9 +20,12 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   bool armed = false;
   bool darkmode = false;
+  FlutterBlue flutterBlue = FlutterBlue.instance;
+
   @override
-  Widget build(BuildContext context,)
-   {
+  Widget build(
+    BuildContext context,
+  ) {
     return Scaffold(
       backgroundColor: darkmode ? Colors.white : Colors.black,
       body: Column(
@@ -26,8 +36,12 @@ class _HomeViewState extends State<HomeView> {
             onTap: () {
               setState(() {
                 if (armed) {
+<<<<<<< HEAD
                   armed = false;
                   _fire.pressDisarm();
+=======
+                  armed = false;                  
+>>>>>>> da7d6dc26a6cf71446dbd8dbcfe95d37aba38631
                 } else {
                   armed = true;
                 }
@@ -73,16 +87,16 @@ class _HomeViewState extends State<HomeView> {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DataVoew(),
-            // Pass the arguments as part of the RouteSettings. The
-            // DetailScreen reads the arguments from these settings.
-            settings: RouteSettings(
-              arguments: darkmode,
-            ),
-          ),
-        );
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DataVoew(),
+                    // Pass the arguments as part of the RouteSettings. The
+                    // DetailScreen reads the arguments from these settings.
+                    settings: RouteSettings(
+                      arguments: darkmode,
+                    ),
+                  ),
+                );
               },
               child: Container(
                 width: 150,

@@ -1,3 +1,4 @@
+import 'package:covid_network_app/Arm.dart';
 import 'package:flutter/material.dart';
 
 import './logic/auth.dart';
@@ -89,6 +90,10 @@ class _LoginViewState extends State<LoginView> {
                       email: _emailController.text,
                       password: _passwordController.text);
                       print('RES : '+result.toString());
+                  Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeView()),
+          );
                 },
                 child: Container(
                   child: Center(

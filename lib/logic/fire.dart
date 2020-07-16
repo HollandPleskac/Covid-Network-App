@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uuid/uuid.dart';
 
-final _firestore = Firestore.instance;
 
+<<<<<<< HEAD
 class Fire {
   void pressDisarm() {
     _firestore.collection('Logs').document().setData({
@@ -13,3 +15,6 @@ class Fire {
     });
   }
 }
+=======
+class Fire {}
+>>>>>>> da7d6dc26a6cf71446dbd8dbcfe95d37aba38631
