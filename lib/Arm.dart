@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import './logic/fire.dart';
 import 'package:flutter_blue/flutter_blue.dart';
-
+import 'package:location/location.dart';
 import './data.dart';
 
 final _fire = Fire();
@@ -18,6 +18,7 @@ class _HomeViewState extends State<HomeView> {
   bool darkmode = false;
   FlutterBlue flutterBlue = FlutterBlue.instance;
 
+  List<String> deviceids = [];
   @override
   Widget build(
     BuildContext context,
@@ -35,17 +36,31 @@ class _HomeViewState extends State<HomeView> {
                   armed = false;
                   print('now armed');
                   // Start scanning
-                  flutterBlue.startScan(timeout: Duration(seconds: 4));
+                  flutterBlue.startScan(
+                      timeout: Duration(seconds: 1000000000000000),
+                      allowDuplicates: false);
 
                   // Listen to scan results
-                  var subscription = flutterBlue.scanResults.listen((results) {
+                  var subscription =
+                      flutterBlue.scanResults.listen((results) async {
+                    Location location = new Location();
+
+                    bool _serviceEnabled;
+                    PermissionStatus _permissionGranted;
+                    LocationData _locationData;
+                    _locationData = await location.getLocation();
                     // do something with scan results
                     for (ScanResult r in results) {
-                      print('${r.device.name} found! rssi: ${r.rssi}');
+                      if (deviceids.contains('${r.device.id}')) {
+                        print("");
+                      } else {
+                        deviceids.add('${r.device.id}');
+                        print(_locationData);
+                        print('${r.device.id} found! rssi: ${r.rssi}');
+                      }
                     }
                   });
-
-                  
+                  subscription;
                 } else {
                   armed = true;
                   print('now disarmed');
