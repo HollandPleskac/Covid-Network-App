@@ -1,6 +1,5 @@
 import 'package:covid_network_app/Arm.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import './logic/auth.dart';
 import './register.dart';
@@ -91,14 +90,7 @@ class _LoginViewState extends State<LoginView> {
                       email: _emailController.text,
                       password: _passwordController.text);
                   print('RES : ' + result.toString());
-                  //set local storage
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-
-                  await prefs.setString(
-                    'email',
-                    _emailController.text,
-                  );
+                  
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomeView()),

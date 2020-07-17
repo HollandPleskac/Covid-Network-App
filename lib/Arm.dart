@@ -6,7 +6,6 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:location/location.dart';
 import './data.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final _fire = Fire();
 
@@ -26,19 +25,24 @@ class _HomeViewState extends State<HomeView> {
 
   String _email;
 
-  Future getEmail() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  getCurrentUser() async {
+    final FirebaseUser user = await _auth.currentUser();
+    final uid = user.uid;
+    final email = user.email;
+    // Similarly we can get email as well
+    //final uemail = user.email;
+    print(uid);
+    //print(uemail);
 
-    String uid = prefs.getString('email');
-
-    _email = uid;
-    print(_email);
+    _email = email;
   }
 
   @override
   void initState() {
-    getEmail().then((_) {
+    getCurrentUser().then((_) {
       setState(() {});
+      print('EMAIL + ' + _email);
     });
 
     super.initState();
@@ -96,11 +100,10 @@ class _HomeViewState extends State<HomeView> {
 
                   flutterBlue.stopScan();
                   _fire.pressDisarm(
-                    deviceids: deviceids,
-                    longcoords: longcoords,
-                    latcoords: latcoords,
-                    email: _email
-                  );
+                      deviceids: deviceids,
+                      longcoords: longcoords,
+                      latcoords: latcoords,
+                      email: _email);
                 }
               });
             },
