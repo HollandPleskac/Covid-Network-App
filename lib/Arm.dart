@@ -15,7 +15,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  bool armed = false;
+  bool armed = true;
   bool darkmode = false;
   FlutterBlue flutterBlue = FlutterBlue.instance;
 
@@ -85,7 +85,7 @@ class _HomeViewState extends State<HomeView> {
                         HapticFeedback.vibrate();
                         deviceids.add('${r.device.id}');
                         coords.add(
-                            "${_locationData.latitude},${_locationData.longitude}");
+                            {"longitude": _locationData.longitude, "latitude": _locationData.latitude});
                         print(_locationData);
                         print('${r.device.id} found! rssi: ${r.rssi}');
                       }
