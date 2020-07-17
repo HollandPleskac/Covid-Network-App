@@ -1,5 +1,6 @@
 import 'package:covid_network_app/Arm.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './logic/auth.dart';
 import './register.dart';
@@ -14,8 +15,8 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,11 +90,19 @@ class _LoginViewState extends State<LoginView> {
                   List result = await _auth.login(
                       email: _emailController.text,
                       password: _passwordController.text);
-                      print('RES : '+result.toString());
+                  print('RES : ' + result.toString());
+                  //set local storage
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+
+                  await prefs.setString(
+                    'email',
+                    _emailController.text,
+                  );
                   Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeView()),
-          );
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeView()),
+                  );
                 },
                 child: Container(
                   child: Center(

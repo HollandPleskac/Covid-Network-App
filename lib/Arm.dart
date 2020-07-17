@@ -6,6 +6,7 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:location/location.dart';
 import './data.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final _fire = Fire();
 
@@ -20,6 +21,29 @@ class _HomeViewState extends State<HomeView> {
   FlutterBlue flutterBlue = FlutterBlue.instance;
 
   List<String> deviceids = [];
+  List longcoords = [];
+  List latcoords = [];
+
+  String _email;
+
+  Future getEmail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String uid = prefs.getString('email');
+
+    _email = uid;
+    print(_email);
+  }
+
+  @override
+  void initState() {
+    getEmail().then((_) {
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(
     BuildContext context,
@@ -57,6 +81,8 @@ class _HomeViewState extends State<HomeView> {
                       } else {
                         HapticFeedback.vibrate();
                         deviceids.add('${r.device.id}');
+                        longcoords.add(_locationData.longitude);
+                        latcoords.add(_locationData.latitude);
                         print(_locationData);
                         print('${r.device.id} found! rssi: ${r.rssi}');
                       }
@@ -69,7 +95,12 @@ class _HomeViewState extends State<HomeView> {
                   // Stop scanning
 
                   flutterBlue.stopScan();
-                  _fire.pressDisarm();
+                  _fire.pressDisarm(
+                    deviceids: deviceids,
+                    longcoords: longcoords,
+                    latcoords: latcoords,
+                    email: _email
+                  );
                 }
               });
             },

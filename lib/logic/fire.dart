@@ -4,13 +4,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 final Firestore _firestore = Firestore.instance;
 
 class Fire {
-  void pressDisarm() {
+  void pressDisarm({
+    List deviceids,
+    List longcoords,
+    List latcoords,
+    String email,
+  }) {
     _firestore.collection('Logs').document().setData({
-      'encounters': '',
-      'high alert encounters': '',
-      'location': [],
-      'email': 'email',
-      'groups': 0,
+      'encounters': deviceids,
+      'location': {
+        'longitude': longcoords,
+        'latitude': latcoords,
+      },
+      'email': email,
     });
   }
 }
