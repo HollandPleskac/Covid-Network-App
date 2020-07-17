@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import './logic/fire.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:location/location.dart';
@@ -23,6 +24,7 @@ class _HomeViewState extends State<HomeView> {
   List coords = [];
 
   String _email;
+  String date;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   getCurrentUser() async {
@@ -97,6 +99,10 @@ class _HomeViewState extends State<HomeView> {
                       }
                     }
                   });
+                  var now = DateTime.now();
+                  var formatter = new DateFormat('yyyy-MM-dd');
+                  String formattedDate = formatter.format(now);
+                  date = formattedDate;
                   subscription;
                 } else {
                   armed = true;
@@ -105,7 +111,10 @@ class _HomeViewState extends State<HomeView> {
 
                   flutterBlue.stopScan();
                   _fire.pressDisarm(
-                      deviceids: deviceids, coords: coords, email: _email);
+                      deviceids: deviceids,
+                      coords: coords,
+                      email: _email,
+                      date: date);
                 }
               });
             },

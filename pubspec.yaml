@@ -32,6 +32,7 @@ dependencies:
   cloud_firestore: ^0.13.7
   flutter_blue: ^0.7.2
   location: ^3.0.0
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
