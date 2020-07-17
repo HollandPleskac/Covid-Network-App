@@ -20,8 +20,7 @@ class _HomeViewState extends State<HomeView> {
   FlutterBlue flutterBlue = FlutterBlue.instance;
 
   List<String> deviceids = [];
-  List longcoords = [];
-  List latcoords = [];
+  List coords = [];
 
   String _email;
 
@@ -85,8 +84,8 @@ class _HomeViewState extends State<HomeView> {
                       } else {
                         HapticFeedback.vibrate();
                         deviceids.add('${r.device.id}');
-                        longcoords.add(_locationData.longitude);
-                        latcoords.add(_locationData.latitude);
+                        coords.add(
+                            "${_locationData.latitude},${_locationData.longitude}");
                         print(_locationData);
                         print('${r.device.id} found! rssi: ${r.rssi}');
                       }
@@ -101,8 +100,7 @@ class _HomeViewState extends State<HomeView> {
                   flutterBlue.stopScan();
                   _fire.pressDisarm(
                       deviceids: deviceids,
-                      longcoords: longcoords,
-                      latcoords: latcoords,
+                      coords: coords,
                       email: _email);
                 }
               });

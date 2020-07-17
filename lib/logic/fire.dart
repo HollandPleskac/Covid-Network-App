@@ -6,15 +6,13 @@ final Firestore _firestore = Firestore.instance;
 class Fire {
   void pressDisarm({
     List deviceids,
-    List longcoords,
-    List latcoords,
+    List coords,
     String email,
   }) {
     _firestore.collection('Logs').document().setData({
       'encounters': deviceids,
       'location': {
-        'longitude': longcoords,
-        'latitude': latcoords,
+        'coords': coords,
       },
       'email': email,
     });
