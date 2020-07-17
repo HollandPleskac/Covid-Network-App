@@ -5,6 +5,7 @@ import './logic/fire.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:location/location.dart';
 import './data.dart';
+import 'package:flutter/services.dart';
 
 final _fire = Fire();
 
@@ -54,6 +55,7 @@ class _HomeViewState extends State<HomeView> {
                       if (deviceids.contains('${r.device.id}')) {
                         print("");
                       } else {
+                        HapticFeedback.vibrate();
                         deviceids.add('${r.device.id}');
                         print(_locationData);
                         print('${r.device.id} found! rssi: ${r.rssi}');
