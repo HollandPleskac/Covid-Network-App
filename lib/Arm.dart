@@ -82,12 +82,18 @@ class _HomeViewState extends State<HomeView> {
                       if (deviceids.contains('${r.device.id}')) {
                         print("");
                       } else {
-                        HapticFeedback.vibrate();
-                        deviceids.add('${r.device.id}');
-                        coords.add(
-                            {"longitude": _locationData.longitude, "latitude": _locationData.latitude});
-                        print(_locationData);
-                        print('${r.device.id} found! rssi: ${r.rssi}');
+                        if (r.rssi > -70) {
+                          HapticFeedback.vibrate();
+                          deviceids.add('${r.device.id}');
+                          coords.add({
+                            "lng": _locationData.longitude,
+                            "lat": _locationData.latitude
+                          });
+                          print(_locationData);
+                          print('${r.device.id} found! rssi: ${r.rssi}');
+                        } else {
+                          print("Ingore");
+                        }
                       }
                     }
                   });
@@ -99,9 +105,7 @@ class _HomeViewState extends State<HomeView> {
 
                   flutterBlue.stopScan();
                   _fire.pressDisarm(
-                      deviceids: deviceids,
-                      coords: coords,
-                      email: _email);
+                      deviceids: deviceids, coords: coords, email: _email);
                 }
               });
             },
