@@ -332,7 +332,7 @@ class Helped extends StatelessWidget {
         }
         try {
           return Text(
-            snapshot.data['total encounters'].toString(),
+            snapshot.data['totalencounters'].toString(),
             style: TextStyle(color: Colors.white),
           );
         } catch (error) {

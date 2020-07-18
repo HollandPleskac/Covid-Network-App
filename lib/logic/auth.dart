@@ -71,8 +71,5 @@ class Auth {
     _firestore.collection('Users').document(email).setData({
       'email': email,
     });
-    _firestore.collection('Users').document(email).collection('logs').document(email).setData({
-      'CurrentDevice': "Holland can you add a way to detect current device?",
-    });
   }
 }
