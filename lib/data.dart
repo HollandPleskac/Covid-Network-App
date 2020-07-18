@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+final Firestore _firestore = Firestore.instance;
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 class DataVoew extends StatefulWidget {
   @override
@@ -10,7 +14,30 @@ class DataVoew extends StatefulWidget {
 class _DataVoewState extends State<DataVoew> {
   bool graphexpaned = true;
   bool mapexpaned = true;
+  String _email;
   List deviceids;
+  getCurrentUser() async {
+    final FirebaseUser user = await _firebaseAuth.currentUser();
+    final uid = user.uid;
+    final email = user.email;
+    // Similarly we can get email as well
+    //final uemail = user.email;
+    print(uid);
+    //print(uemail);
+
+    _email = email;
+  }
+
+  @override
+  void initState() {
+    getCurrentUser().then((_) {
+      setState(() {});
+      print('EMAIL + ' + _email);
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -216,6 +243,9 @@ class _DataVoewState extends State<DataVoew> {
           SizedBox(
             height: 20,
           ),
+          Helped(
+            email: _email,
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -282,4 +312,35 @@ class _DataVoewState extends State<DataVoew> {
         });
   }
   */
+}
+
+class Helped extends StatelessWidget {
+  final String email;
+
+  Helped({this.email});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: _firestore.collection('UserData').document(email).snapshots(),
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.data == null) {
+          return Center(
+            child: Container(),
+          );
+        }
+        try {
+          return Text(
+            snapshot.data['total encounters'],
+            style: TextStyle(color: Colors.white),
+          );
+        } catch (error) {
+          return Text(
+            'error with data',
+            style: TextStyle(color: Colors.white),
+          );
+        }
+      },
+    );
+  }
 }
