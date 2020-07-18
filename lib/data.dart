@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DataVoew extends StatefulWidget {
   @override
@@ -8,6 +10,7 @@ class DataVoew extends StatefulWidget {
 class _DataVoewState extends State<DataVoew> {
   bool graphexpaned = true;
   bool mapexpaned = true;
+  List deviceids;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +69,7 @@ class _DataVoewState extends State<DataVoew> {
                     child: Container(
                       child: Center(
                         child: Text(
-                          'Graph',
+                          '',
                           style: TextStyle(
                               color: Colors.grey[100],
                               fontSize: 22,
@@ -76,6 +79,10 @@ class _DataVoewState extends State<DataVoew> {
                       height: MediaQuery.of(context).size.height * 0.25,
                       width: MediaQuery.of(context).size.width * 0.9,
                       decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                  'https://appdividend.com/wp-content/uploads/2018/09/Charts-in-Angular-6.png'),
+                              fit: BoxFit.cover),
                           color: Colors.red[300],
                           borderRadius: BorderRadius.circular(10)),
                     ),
@@ -95,7 +102,7 @@ class _DataVoewState extends State<DataVoew> {
                     child: Container(
                       child: Center(
                         child: Text(
-                          'Map',
+                          '',
                           style: TextStyle(
                               color: Colors.grey[100],
                               fontSize: 22,
@@ -107,7 +114,7 @@ class _DataVoewState extends State<DataVoew> {
                       decoration: BoxDecoration(
                           image: DecorationImage(
                               image: NetworkImage(
-                                  'https://i.insider.com/5e6f93c9c4854033994b45d2?width=1136&format=jpeg'),
+                                  'https://www.google.com/maps/vt/data=dCKg3mxvEQvLHvPkNutVFa-jXZG-JcLcG7e99qQbtQYTBvjvNVLla9xOedlS902vq5ku46vMzNF-Ki0Q-l2iu7vW8TqXX1Rlc5ZFIrqlXkq8dZcWs0NiYECd6w8IKhHbUTg0TPTZgbx4nGUoP2djUWv3qTlCngkTbXAPO1w0qV23lke05YV1'),
                               fit: BoxFit.cover),
                           color: Colors.red[300],
                           borderRadius: BorderRadius.circular(10)),
@@ -133,7 +140,7 @@ class _DataVoewState extends State<DataVoew> {
           Padding(
             padding: const EdgeInsets.only(left: 40),
             child: Text(
-              '20',
+              '22',
               style: TextStyle(
                   color: Colors.grey[100],
                   fontSize: 24,
@@ -166,7 +173,7 @@ class _DataVoewState extends State<DataVoew> {
           Padding(
             padding: const EdgeInsets.only(left: 40),
             child: Text(
-              'Random Location',
+              'Mountain House',
               style: TextStyle(
                   color: Colors.grey[100],
                   fontSize: 24,
@@ -186,7 +193,7 @@ class _DataVoewState extends State<DataVoew> {
           Padding(
             padding: const EdgeInsets.only(left: 40),
             child: Text(
-              'High-Probability Encounters:',
+              'High Risk Trip:',
               style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: 20,
@@ -223,5 +230,55 @@ class _DataVoewState extends State<DataVoew> {
         backgroundColor: Colors.red[200],
       ),
     );
+  }
+
+  Widget listofencounters(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance.collection("Logs").snapshots(),
+        builder: (context, snapshot) {
+          return !snapshot.hasData
+              ? Text('PLease Wait')
+              : ListView.builder(
+                  itemCount: snapshot.data.documents.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot products = snapshot.data.documents[index];
+                    var now = DateTime.now();
+                    var formatter = new DateFormat('yyyy-MM-dd');
+                    String formattedDate = formatter.format(now);
+                    String date = formattedDate;
+                    String todaysdatefirestore = products['name'];
+
+                    if (todaysdatefirestore == date) {
+                      return ListTile(
+                        title: products['encounters'],
+                      );
+                    }
+                  },
+                );
+        });
+  }
+
+  Widget helped(BuildContext context) {
+    return new StreamBuilder(
+        stream: Firestore.instance.collection("Logs").snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return new Text("Loading");
+          } else {
+            Map<String, dynamic> documentFields = snapshot.data.data;
+            var now = DateTime.now();
+            var formatter = new DateFormat('yyyy-MM-dd');
+            String formattedDate = formatter.format(now);
+            String date = formattedDate;
+            String todaysdatefirestore = documentFields['date'];
+            int counter = 0;
+            if (todaysdatefirestore == formattedDate) {
+              documentFields['encounters'].forEach((element) {
+                counter++;
+              });
+            }
+            return Text("${counter}");
+          }
+        });
   }
 }
