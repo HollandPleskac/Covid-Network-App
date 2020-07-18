@@ -321,8 +321,9 @@ class Helped extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('EM + '+email);
     return StreamBuilder(
-      stream: _firestore.collection('UserData').document(email).snapshots(),
+      stream: _firestore.collection('Users').document(email).snapshots(),
       builder: (BuildContext context, snapshot) {
         if (snapshot.data == null) {
           return Center(
@@ -331,12 +332,12 @@ class Helped extends StatelessWidget {
         }
         try {
           return Text(
-            snapshot.data['total encounters'],
+            snapshot.data['total encounters'].toString(),
             style: TextStyle(color: Colors.white),
           );
         } catch (error) {
           return Text(
-            'error with data',
+            'error with data '+error.toString(),
             style: TextStyle(color: Colors.white),
           );
         }
