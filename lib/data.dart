@@ -231,7 +231,7 @@ class _DataVoewState extends State<DataVoew> {
       ),
     );
   }
-
+/*
   Widget listofencounters(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance.collection("Logs").snapshots(),
@@ -281,4 +281,5 @@ class _DataVoewState extends State<DataVoew> {
           }
         });
   }
+  */
 }
